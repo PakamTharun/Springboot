@@ -1,7 +1,5 @@
 package com.pack.SpringbootJunit;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,12 +10,12 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import org.springframework.http.MediaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,11 +24,9 @@ import com.pack.SpringbootJunit.Repository.MovieRepository;
 import com.pack.SpringbootJunit.Service.MovieServiceImpl;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @WebMvcTest
 public class MovieControllerTest {
 
-	
 	@Autowired
 
     MockMvc mockMvc;
@@ -101,9 +97,10 @@ public class MovieControllerTest {
 
                    Mockito.when(movieImpl.getAllMovies()).thenReturn(l);
 
-                   MvcResult result=mockMvc.perform(get("/movie/movies")).andReturn();
+                   MvcResult result=mockMvc.perform(get("/movie/movie")).andReturn();
 
                    String res=result.getResponse().getContentAsString();
+                   System.out.println(res);
 
                    List<Movie> mlist=new ArrayList<>();
 
@@ -112,6 +109,4 @@ public class MovieControllerTest {
                    assertEquals(l.size(),mlist.size());
 
     }
-
-   
 }
